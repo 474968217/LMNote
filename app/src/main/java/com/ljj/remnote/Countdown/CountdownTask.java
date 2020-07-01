@@ -1,5 +1,15 @@
 package com.ljj.remnote.Countdown;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.SystemClock;
+
+import com.ljj.remnote.Alarm.AlarmReceiver;
+
+import static android.content.Context.ALARM_SERVICE;
+
 public class CountdownTask {
     private String name;
     private int h;
@@ -50,5 +60,16 @@ public class CountdownTask {
 
     public void setS(int s) {
         this.s = s;
+    }
+
+    public void createAlarm(Context context) {
+        AlarmManager manager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        long triggerAtTime = SystemClock.elapsedRealtime() + ((h * 60 + m) * 60 + s) * 1000;
+        Intent i = new Intent(context, AlarmReceiver.class);
+        i.setAction("COUNTDOWN_ACTION");
+        i.putExtra("name", name);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
     }
 }

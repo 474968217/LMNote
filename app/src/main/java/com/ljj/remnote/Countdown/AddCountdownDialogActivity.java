@@ -74,9 +74,9 @@ public class AddCountdownDialogActivity extends Activity {
         String textTime = editText.getText().toString();
         while (textTime.length() < 5) textTime = "0" + textTime;
         int l = textTime.length();
-        int h = Integer.parseInt(textTime.substring(l - 2, l));
+        int s = Integer.parseInt(textTime.substring(l - 2, l));
         int m = Integer.parseInt(textTime.substring(l - 4, l - 2));
-        int s = Integer.parseInt(textTime.substring(0, l - 4));
+        int h= Integer.parseInt(textTime.substring(0, l - 4));
 
         Button buttonAddCountdown = findViewById(R.id.button_add_countdown);
         buttonAddCountdown.setEnabled(m <= 60 && s <= 60 && (h + m + s != 0));
@@ -93,19 +93,20 @@ public class AddCountdownDialogActivity extends Activity {
     }
 
     private void onAddButton(View view) {
-        EditText editTextName = findViewById(R.id.editText_countdown_time);
+        EditText editTextName = findViewById(R.id.editText_countdown_name);
         String name = editTextName.getText().toString();
 
         EditText editTextTime = findViewById(R.id.editText_countdown_time);
         String textTime = editTextTime.getText().toString();
         while (textTime.length() < 5) textTime = "0" + textTime;
         int l = textTime.length();
-        int h = Integer.parseInt(textTime.substring(l - 2, l));
+        int s = Integer.parseInt(textTime.substring(l - 2, l));
         int m = Integer.parseInt(textTime.substring(l - 4, l - 2));
-        int s = Integer.parseInt(textTime.substring(0, l - 4));
+        int h = Integer.parseInt(textTime.substring(0, l - 4));
 
         Toast.makeText(getApplicationContext(), "name=" + name + ",h=" + h + ",m=" + m + ",s=" + s, Toast.LENGTH_LONG).show();
-        CountdownManager.getInstance().addCountdownTask(name, h, m, s);
+        CountdownManager.getInstance().addCountdownTask(this, name, h, m, s);
+
         this.finish();
     }
 }
