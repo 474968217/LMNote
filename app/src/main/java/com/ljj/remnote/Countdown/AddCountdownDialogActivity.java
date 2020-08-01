@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.ljj.remnote.Logger;
 import com.ljj.remnote.R;
 
 public class AddCountdownDialogActivity extends Activity {
@@ -76,7 +77,7 @@ public class AddCountdownDialogActivity extends Activity {
         int l = textTime.length();
         int s = Integer.parseInt(textTime.substring(l - 2, l));
         int m = Integer.parseInt(textTime.substring(l - 4, l - 2));
-        int h= Integer.parseInt(textTime.substring(0, l - 4));
+        int h = Integer.parseInt(textTime.substring(0, l - 4));
 
         Button buttonAddCountdown = findViewById(R.id.button_add_countdown);
         buttonAddCountdown.setEnabled(m <= 60 && s <= 60 && (h + m + s != 0));
@@ -104,7 +105,7 @@ public class AddCountdownDialogActivity extends Activity {
         int m = Integer.parseInt(textTime.substring(l - 4, l - 2));
         int h = Integer.parseInt(textTime.substring(0, l - 4));
 
-        Toast.makeText(getApplicationContext(), "name=" + name + ",h=" + h + ",m=" + m + ",s=" + s, Toast.LENGTH_LONG).show();
+        Logger.LogD("AddCountdownDialogActivity", "onAddButton name=" + name + ",h=" + h + ",m=" + m + ",s=" + s);
         CountdownManager.getInstance().addCountdownTask(this, name, h, m, s);
 
         this.finish();

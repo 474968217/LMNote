@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ljj.remnote.Logger;
 import com.ljj.remnote.Notification.NotificationUtils;
 import com.ljj.remnote.R;
 
@@ -16,10 +17,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("AlarmReceiver", "executed at " + new Date().
-                toString());
+        Logger.LogD("AlarmReceiver", "executed at " + new Date().toString());
         if (intent.getAction().equals("COUNTDOWN_ACTION")) {
-            Toast.makeText(context, "Countdown:" + intent.getStringExtra("name"), Toast.LENGTH_LONG).show();
+            Logger.LogD("AlarmReceiver", "Countdown:" + intent.getStringExtra("name"));
             NotificationUtils notificationUtils = new NotificationUtils(
                     context,
                     0,

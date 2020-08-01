@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Logger.setContext(getApplicationContext());
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,14 +39,6 @@ public class MainActivity extends AppCompatActivity {
         buttonAddCountdownDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                NotificationUtils notificationUtils = new NotificationUtils(
-//                        getApplicationContext(),
-//                        0,
-//                        "",
-//                        R.mipmap.ic_launcher,
-//                        "标题",
-//                        "内容");
-//                notificationUtils.notified();
                 Intent intent = new Intent(MainActivity.this, AddCountdownDialogActivity.class);
                 startActivity(intent);
             }
