@@ -6,14 +6,20 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.ljj.remnote.Countdown.AddCountdownDialogActivity;
+import com.ljj.remnote.Countdown.CountdownManager;
+import com.ljj.remnote.Countdown.RecyclerViewAdapterCountdownList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,8 +49,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        updateRecyclerViewCountdownTask();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("rem", "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("rem", "onResume");
+        updateRecyclerViewCountdownTask();
+    }
+
+    public void updateRecyclerViewCountdownTask() {
+        Toast.makeText(getApplicationContext(), "updateRecyclerViewCountdownTask, cnt=" + CountdownManager.getInstance().getTaskList().size(), Toast.LENGTH_LONG).show();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_countdown_task);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        RecyclerViewAdapterCountdownList adapter = new RecyclerViewAdapterCountdownList(CountdownManager.getInstance().getTaskList());
+        recyclerView.setAdapter(adapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
