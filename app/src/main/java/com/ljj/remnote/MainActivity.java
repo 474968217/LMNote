@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Logger.setContext(getApplicationContext());
+        RemLog.setContext(getApplicationContext());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         updateRecyclerViewCountdownTask();
     }
 
+    //TODO:定时任务实现实时刷新
     public void updateRecyclerViewCountdownTask() {
         Toast.makeText(getApplicationContext(), "updateRecyclerViewCountdownTask, cnt=" + CountdownManager.getInstance().getTaskList().size(), Toast.LENGTH_LONG).show();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_countdown_task);

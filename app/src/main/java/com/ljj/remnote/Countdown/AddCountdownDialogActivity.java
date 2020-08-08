@@ -8,11 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.ljj.remnote.Logger;
+import com.ljj.remnote.RemLog;
 import com.ljj.remnote.R;
 
 public class AddCountdownDialogActivity extends Activity {
@@ -105,8 +104,8 @@ public class AddCountdownDialogActivity extends Activity {
         int m = Integer.parseInt(textTime.substring(l - 4, l - 2));
         int h = Integer.parseInt(textTime.substring(0, l - 4));
 
-        Logger.LogD("AddCountdownDialogActivity", "onAddButton name=" + name + ",h=" + h + ",m=" + m + ",s=" + s);
-        CountdownManager.getInstance().addCountdownTask(this, name, h, m, s);
+        RemLog.LogD("AddCountdownDialogActivity", "onAddButton name=" + name + ",h=" + h + ",m=" + m + ",s=" + s);
+        CountdownManager.getInstance().addCountdownTask(name, h, m, s);
 
         this.finish();
     }

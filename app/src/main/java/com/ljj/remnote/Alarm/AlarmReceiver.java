@@ -1,13 +1,10 @@
 package com.ljj.remnote.Alarm;
 
-import android.app.NotificationChannel;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.ljj.remnote.Logger;
+import com.ljj.remnote.RemLog;
 import com.ljj.remnote.Notification.NotificationUtils;
 import com.ljj.remnote.R;
 
@@ -17,9 +14,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Logger.LogD("AlarmReceiver", "executed at " + new Date().toString());
+        RemLog.LogD("AlarmReceiver", "executed at " + new Date().toString());
         if (intent.getAction().equals("COUNTDOWN_ACTION")) {
-            Logger.LogD("AlarmReceiver", "Countdown:" + intent.getStringExtra("name"));
+            RemLog.LogD("AlarmReceiver", "Countdown:" + intent.getStringExtra("name"));
             NotificationUtils notificationUtils = new NotificationUtils(
                     context,
                     0,

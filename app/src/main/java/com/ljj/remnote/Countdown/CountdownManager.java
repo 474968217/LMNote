@@ -16,17 +16,26 @@ public class CountdownManager {
 
     private List<CountdownTask> taskList = new ArrayList<>();
 
-    public void addCountdownTask(Context context, String name, int h, int m, int s) {
-        CountdownTask task = new CountdownTask(name, h, m, s);
-        getTaskList().add(task);
-        task.createAlarm(context);
-    }
-
     public List<CountdownTask> getTaskList() {
         return taskList;
     }
 
     public void setTaskList(List<CountdownTask> taskList) {
         this.taskList = taskList;
+    }
+
+    public void addCountdownTask(String name, int h, int m, int s) {
+        CountdownTask task = new CountdownTask(name, h, m, s);
+        getTaskList().add(task);
+        //task.createAlarm(context);
+    }
+
+    public boolean deleteCountdownTask(CountdownTask task) {
+        if (taskList.contains(task)) {
+            //TODO:删除前关闭系统提示
+            taskList.remove(task);
+            return true;
+        }
+        return false;
     }
 }

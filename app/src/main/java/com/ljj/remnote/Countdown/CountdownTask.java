@@ -7,20 +7,33 @@ import android.content.Intent;
 import android.os.SystemClock;
 
 import com.ljj.remnote.Alarm.AlarmReceiver;
+import com.ljj.remnote.RemLog;
+import com.ljj.remnote.TimeTool;
 
 import static android.content.Context.ALARM_SERVICE;
 
 public class CountdownTask {
+    private static final String TAG = "CountdownTask";
+
     private String name;
     private int h;
     private int m;
     private int s;
+    private Boolean running;
+    private Long startTime;
+    private Long endTime;
 
     public CountdownTask() {
         setName("");
         setH(0);
         setM(0);
         setS(0);
+        setRunning(false);
+        setStartTime(0L);
+        setEndTime(0L);
+        setRunning(false);
+        setStartTime(0L);
+        setEndTime(0L);
     }
 
     public CountdownTask(String name, int h, int m, int s) {
@@ -28,6 +41,12 @@ public class CountdownTask {
         setH(h);
         setM(m);
         setS(s);
+        setRunning(false);
+        setStartTime(0L);
+        setEndTime(0L);
+        setRunning(false);
+        setStartTime(0L);
+        setEndTime(0L);
     }
 
     public String getName() {
@@ -60,6 +79,51 @@ public class CountdownTask {
 
     public void setS(int s) {
         this.s = s;
+    }
+
+    public Boolean getRunning() {
+        return running;
+    }
+
+    public void setRunning(Boolean running) {
+        this.running = running;
+    }
+
+    public Long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    public Boolean start() {
+        if (getRunning()) {
+            RemLog.LogE(TAG, "start when task is running");
+            return false;
+        }
+        setRunning(true);
+        setStartTime(TimeTool.getTimestampNow());
+        setEndTime(TimeTool.getTimestampAfterHMS(getH(), getM(), getS()));
+
+        //TODO:接入系统提醒
+        return false;
+    }
+
+    public Long getRemainTime() {
+        Long remainTime = getEndTime();
+        remainTime = remainTime - TimeTool.getTimestampNow();
+        if (remainTime < 0L)
+            remainTime = 0L;
+        return remainTime;
     }
 
     public void createAlarm(Context context) {
