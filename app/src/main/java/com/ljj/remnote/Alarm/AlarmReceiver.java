@@ -11,12 +11,13 @@ import com.ljj.remnote.R;
 import java.util.Date;
 
 public class AlarmReceiver extends BroadcastReceiver {
+    public static final String TAG = "AlarmReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        RemLog.LogD("AlarmReceiver", "executed at " + new Date().toString());
+        RemLog.LogD(TAG, "executed at " + new Date().toString());
         if (intent.getAction().equals("COUNTDOWN_ACTION")) {
-            RemLog.LogD("AlarmReceiver", "Countdown:" + intent.getStringExtra("name"));
+            RemLog.LogD(TAG, "Countdown:" + intent.getStringExtra("name"));
             NotificationUtils notificationUtils = new NotificationUtils(
                     context,
                     0,

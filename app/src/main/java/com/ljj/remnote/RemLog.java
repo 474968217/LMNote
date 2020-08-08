@@ -6,6 +6,9 @@ import android.widget.Toast;
 
 public class RemLog {
 
+    public static final Boolean USE_SYS_LOG = true;
+    public static final Boolean USE_TOAST_LOG = true;
+
     public static Context getContext() {
         return context;
     }
@@ -17,12 +20,16 @@ public class RemLog {
     static Context context;
 
     public static void LogD(String tag, String log) {
-        Log.d(tag, log);
-        Toast.makeText(context, "[" + tag + "]" + log, Toast.LENGTH_LONG).show();
+        if (USE_SYS_LOG)
+            Log.d(tag, log);
+        if (USE_TOAST_LOG)
+            Toast.makeText(context, "[DEBUG][" + tag + "]" + log, Toast.LENGTH_LONG).show();
     }
 
     public static void LogE(String tag, String log) {
-        Log.e(tag, log);
-        Toast.makeText(context, "[" + tag + "]" + log, Toast.LENGTH_LONG).show();
+        if (USE_SYS_LOG)
+            Log.e(tag, log);
+        if (USE_TOAST_LOG)
+            Toast.makeText(context, "[ERROR][" + tag + "]" + log, Toast.LENGTH_LONG).show();
     }
 }

@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +58,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("rem", "onStart");
+        RemLog.LogD(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("rem", "onResume");
+        RemLog.LogD(TAG, "onResume");
         updateRecyclerViewCountdownTask();
     }
 
     //TODO:定时任务实现实时刷新
     public void updateRecyclerViewCountdownTask() {
-        Toast.makeText(getApplicationContext(), "updateRecyclerViewCountdownTask, cnt=" + CountdownManager.getInstance().getTaskList().size(), Toast.LENGTH_LONG).show();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_countdown_task);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);

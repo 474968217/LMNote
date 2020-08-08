@@ -16,6 +16,8 @@ import com.ljj.remnote.R;
 
 public class AddCountdownDialogActivity extends Activity {
 
+    public static final String TAG = "AddCountdownDialogActivity";
+
     //private MyDialog dialog;
     private ConstraintLayout layout;
 
@@ -104,7 +106,7 @@ public class AddCountdownDialogActivity extends Activity {
         int m = Integer.parseInt(textTime.substring(l - 4, l - 2));
         int h = Integer.parseInt(textTime.substring(0, l - 4));
 
-        RemLog.LogD("AddCountdownDialogActivity", "onAddButton name=" + name + ",h=" + h + ",m=" + m + ",s=" + s);
+        RemLog.LogD(TAG, "onAddButton name=" + name + ",h=" + h + ",m=" + m + ",s=" + s);
         CountdownManager.getInstance().addCountdownTask(name, h, m, s);
 
         this.finish();
