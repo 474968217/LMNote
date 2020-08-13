@@ -110,6 +110,7 @@ public class CountdownTask {
             RemLog.LogE(TAG, "start when task is running");
             return false;
         }
+        RemLog.LogD(TAG,"start name="+getName());
         setRunning(true);
         setStartTime(TimeTool.getTimestampNow());
         setEndTime(TimeTool.getTimestampAfterHMS(getH(), getM(), getS()));

@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,20 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
+
+    private Handler uiFlushHandler = new Handler();
+    private Runnable uiFlushRunnalbe = new Runnable() {
+        @Override
+        public void run() {
+            this.flushUi();
+            uiFlushHandler.postDelayed(this,500);
+        }
+        private void flushUi(){
+            updateRecyclerViewCountdownTask();
+        }
+    };
+
+    RecyclerViewAdapterCountdownList recyclerViewAdapterCountdownList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_countdown_task);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerViewAdapterCountdownList = new RecyclerViewAdapterCountdownList(CountdownManager.getInstance().getTaskList());
+        recyclerView.setAdapter(recyclerViewAdapterCountdownList);
+
+        uiFlushHandler.postDelayed(uiFlushRunnalbe,500);
+
+
     }
 
     public static Integer testFunc() {
@@ -68,16 +93,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         RemLog.LogD(TAG, "onResume");
-        updateRecyclerViewCountdownTask();
+        //updateRecyclerViewCountdownTask();
     }
 
     //TODO:定时任务实现实时刷新
     private Integer updateRecyclerViewCountdownTask() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_countdown_task);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        RecyclerViewAdapterCountdownList adapter = new RecyclerViewAdapterCountdownList(CountdownManager.getInstance().getTaskList());
-        recyclerView.setAdapter(adapter);
+        RemLog.LogD(TAG,"updateRecyclerViewCountdownTask");
+        recyclerViewAdapterCountdownList.notifyDataSetChanged();
         return 0;
     }
 
