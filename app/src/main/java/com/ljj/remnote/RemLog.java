@@ -7,7 +7,7 @@ import android.widget.Toast;
 public class RemLog {
 
     public static final Boolean USE_SYS_LOG = true;
-    public static final Boolean USE_TOAST_LOG = true;
+    public static final Boolean USE_TOAST_LOG = false;
 
     public static Context getContext() {
         return context;

@@ -8,22 +8,21 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ljj.remnote.Countdown.AddCountdownDialogActivity;
 import com.ljj.remnote.Countdown.CountdownManager;
 import com.ljj.remnote.Countdown.RecyclerViewAdapterCountdownList;
+import com.ljj.remnote.Thread.RemThread;
+import com.ljj.remnote.Thread.RemThreadTask;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //日志初始化
         RemLog.setContext(getApplicationContext());
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -51,8 +51,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        updateRecyclerViewCountdownTask();
+    public static Integer testFunc() {
+        RemLog.LogD(TAG, "RemThread test");
+        return 0;
     }
 
     @Override
@@ -69,12 +72,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO:定时任务实现实时刷新
-    public void updateRecyclerViewCountdownTask() {
+    private Integer updateRecyclerViewCountdownTask() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_countdown_task);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         RecyclerViewAdapterCountdownList adapter = new RecyclerViewAdapterCountdownList(CountdownManager.getInstance().getTaskList());
         recyclerView.setAdapter(adapter);
+        return 0;
     }
 
     @Override
